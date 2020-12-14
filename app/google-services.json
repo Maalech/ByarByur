@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "364509905239",
+    "firebase_url": "https://byarbyur-de0eb.firebaseio.com",
+    "project_id": "byarbyur-de0eb",
+    "storage_bucket": "byarbyur-de0eb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:364509905239:android:9e88857f6e658176147e12",
+        "android_client_info": {
+          "package_name": "com.byarbyur.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "364509905239-gf4nbjj2978mnio4sbo5urlmc2hv2mil.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdFrTaTl7-1p2EZYU39XuSARRyoDgXMQY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "364509905239-gf4nbjj2978mnio4sbo5urlmc2hv2mil.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
