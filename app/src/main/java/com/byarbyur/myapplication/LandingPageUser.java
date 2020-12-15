@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 public class LandingPageUser extends AppCompatActivity {
-    Button logout;
+    Button logout, addBusiness;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +17,14 @@ public class LandingPageUser extends AppCompatActivity {
         setContentView(R.layout.activity_landing_page_user);
 
         logout = findViewById(R.id.logout_btn);
+
+        addBusiness = findViewById(R.id.addB_btn);
+        addBusiness.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
