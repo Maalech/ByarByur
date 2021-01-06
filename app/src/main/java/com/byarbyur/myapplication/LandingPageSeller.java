@@ -8,13 +8,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class LandingPageUser extends AppCompatActivity {
+public class LandingPageSeller extends AppCompatActivity {
     Button logout, addBusiness;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_landing_page_user);
+        setContentView(R.layout.activity_landing_page_seller);
 
         logout = findViewById(R.id.logout_btn);
 
@@ -22,6 +22,7 @@ public class LandingPageUser extends AppCompatActivity {
         addBusiness.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                startActivity(new Intent(LandingPageSeller.this, CreateBusinessActivity.class));
 
             }
         });
@@ -29,7 +30,7 @@ public class LandingPageUser extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(LandingPageUser.this, "Logout Success", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LandingPageSeller.this, "Logout Success", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(getApplicationContext(), Login.class));
                 finish();
             }

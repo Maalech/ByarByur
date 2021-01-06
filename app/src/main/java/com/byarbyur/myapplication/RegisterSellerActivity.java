@@ -127,7 +127,7 @@ public class RegisterSellerActivity extends AppCompatActivity {
                                     Log.d(TAG, "onFailure: " + e.toString());
                                 }
                             });
-                            startActivity(new Intent(getApplicationContext(), LandingPageUser.class));
+                            startActivity(new Intent(getApplicationContext(), LandingPageSeller.class));
                             finish();
                         } else {
                             Toast.makeText(RegisterSellerActivity.this, "Error !" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();

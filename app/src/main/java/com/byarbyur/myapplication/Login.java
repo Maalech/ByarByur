@@ -72,13 +72,13 @@ public class Login extends AppCompatActivity {
                                             DocumentSnapshot document = task.getResult();
                                             if (document.exists()) {
                                                 String type = document.getString("type");
-                                                if (type.equals("student")) {
+                                                if (type.equals("seller")) {
                                                     Toast.makeText(Login.this, "Logged in Success", Toast.LENGTH_SHORT).show();
-                                                    startActivity(new Intent(getApplicationContext(), LandingPageUser.class));
+                                                    startActivity(new Intent(getApplicationContext(), LandingPageSeller.class));
                                                     finish();
-                                                } else if (type.equals("teacher")) {
+                                                } else if (type.equals("buyer")) {
                                                     Toast.makeText(Login.this, "Logged in Success", Toast.LENGTH_SHORT).show();
-                                                    startActivity(new Intent(getApplicationContext(), LandingPageUser.class));
+                                                    startActivity(new Intent(getApplicationContext(), LandingPageSeller.class));
                                                     finish();
                                                 }
                                             }

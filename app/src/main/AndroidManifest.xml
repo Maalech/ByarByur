@@ -9,11 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddImageBusiness"></activity>
+        <activity android:name=".LandingPageBuyer"></activity>
+        <activity android:name=".AddImageBusiness" />
         <activity android:name=".ManageBusinessActivity" />
         <activity android:name=".CreateBusinessActivity" />
         <activity android:name=".EditProfile" />
-        <activity android:name=".LandingPageUser" />
+        <activity android:name=".LandingPageSeller" />
         <activity android:name=".RegisterAs" />
         <activity android:name=".RegisterBuyerActivity" />
         <activity android:name=".RegisterSellerActivity" />

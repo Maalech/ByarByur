@@ -53,7 +53,7 @@ public class RegisterBuyerActivity extends AppCompatActivity {
                 String password = reg_password.getText().toString().trim();
                 final String fullName = reg_nama.getText().toString();
                 final String telephone = reg_telephone.getText().toString();
-                final String type = "seller";
+                final String type = "buyer";
 
                 String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
                 Pattern UpperCasePatten = Pattern.compile("[A-Z ]");
@@ -127,7 +127,7 @@ public class RegisterBuyerActivity extends AppCompatActivity {
                                     Log.d(TAG, "onFailure: " + e.toString());
                                 }
                             });
-                            startActivity(new Intent(getApplicationContext(), LandingPageUser.class));
+                            startActivity(new Intent(getApplicationContext(), LandingPageSeller.class));
                             finish();
                         } else {
                             Toast.makeText(RegisterBuyerActivity.this, "Error !" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
