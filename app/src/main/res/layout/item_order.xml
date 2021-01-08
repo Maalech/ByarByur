@@ -82,7 +82,6 @@
                         android:id="@+id/status_user"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/round_corner_process"
                         android:padding="10dp"
                         android:text="Status"
                         android:gravity="center"

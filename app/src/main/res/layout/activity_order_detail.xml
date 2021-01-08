@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.OrderDetailActivity">
+    tools:context=".OrderDetailActivity">
 
     <TextView
         android:id="@+id/textView26"
@@ -193,13 +193,10 @@
         android:layout_width="350dp"
         android:layout_height="100dp"
         android:layout_weight="1"
-        android:background="@drawable/et_bg"
         android:gravity="top"
         android:hint="Catatan"
         android:inputType="textMultiLine"
         android:padding="10dp"
-        android:textColor="@color/colortext"
-        android:textColorHint="@color/colortext"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/textView16"
         app:layout_constraintHorizontal_bias="0.0"

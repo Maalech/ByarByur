@@ -27,7 +27,7 @@
             <ImageView
                 android:id="@+id/image"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dualimapuluh" />
+                android:layout_height="250dp" />
 
             <Button
                 android:id="@+id/delete"
