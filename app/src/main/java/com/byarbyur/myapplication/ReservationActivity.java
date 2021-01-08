@@ -68,7 +68,7 @@ public class ReservationActivity extends AppCompatActivity {
         tanggal = findViewById(R.id.date_tv);
         waktu = findViewById(R.id.waktu_tv);
 
-        db.collection("users").document(id).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        db.collection("seller").document(id).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {

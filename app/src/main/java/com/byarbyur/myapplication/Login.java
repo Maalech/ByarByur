@@ -78,7 +78,7 @@ public class Login extends AppCompatActivity {
                                                     finish();
                                                 } else if (type.equals("buyer")) {
                                                     Toast.makeText(Login.this, "Logged in Success", Toast.LENGTH_SHORT).show();
-                                                    startActivity(new Intent(getApplicationContext(), LandingPageSeller.class));
+                                                    startActivity(new Intent(getApplicationContext(), LandingPageBuyer.class));
                                                     finish();
                                                 }
                                             }

@@ -82,7 +82,14 @@ public class SellerPageActivity extends AppCompatActivity implements com.byarbyu
 
         chatRoomRepository = new ChatRoomRepository(FirebaseFirestore.getInstance());
 
-        db.collection("users").document(id).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+
+        //init
+        iFireStoreLoadDone = this;
+        img_page = FirebaseFirestore.getInstance().collection("users").document(id).collection("image");
+        viewPager = findViewById(R.id.img_VP);
+
+        getData();
+        db.collection("seller").document(id).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -90,7 +97,8 @@ public class SellerPageActivity extends AppCompatActivity implements com.byarbyu
                     nama.setText(documentSnapshot.getString("nama"));
                     alamat.setText(documentSnapshot.getString("alamat"));
                     desc.setText(documentSnapshot.getString("desc"));
-                    harga.setText(documentSnapshot.get("harga").toString());
+                    int hrg=Integer.parseInt(documentSnapshot.get("harga").toString());
+                    harga.setText(hrg+"");
                     contact.setText(documentSnapshot.get("contact").toString());
                     final StorageReference Ref = storageReference.child(documentSnapshot.getString("nama")  + "/Profile.jpg");
                     Ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -107,12 +115,6 @@ public class SellerPageActivity extends AppCompatActivity implements com.byarbyu
 
 
         });
-        //init
-        iFireStoreLoadDone = this;
-        img_page = FirebaseFirestore.getInstance().collection("users").document(id).collection("image");
-        viewPager = findViewById(R.id.img_VP);
-
-        getData();
 
         pesanbtn.setOnClickListener(new View.OnClickListener() {
             @Override
