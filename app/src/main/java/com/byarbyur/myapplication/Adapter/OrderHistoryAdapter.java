@@ -43,14 +43,14 @@ public class OrderHistoryAdapter extends FirestoreRecyclerAdapter<Pesanan, Order
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        db.collection("barber").document(userId).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        db.collection("seller").document(userId).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
 
                 holder.namaTv.setText(documentSnapshot.getString("nama"));
                 holder.alamatTv.setText(documentSnapshot.getString("alamat"));
 
-                StorageReference storageReference = FirebaseStorage.getInstance().getReference("Barber");
+                StorageReference storageReference = FirebaseStorage.getInstance().getReference("Seller");
                 final StorageReference Ref = storageReference.child(holder.namaTv.getText().toString() + "/Profile.jpg");
                 Ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override

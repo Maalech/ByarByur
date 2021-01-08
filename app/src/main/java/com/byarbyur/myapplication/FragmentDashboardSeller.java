@@ -10,6 +10,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -19,12 +23,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
-
-public class SellerFragment extends Fragment {
+public class FragmentDashboardSeller extends Fragment {
 
     Button manageB,reserveB,chatRoom;
     TextView namaTv,alamatTv;
@@ -34,7 +34,7 @@ public class SellerFragment extends Fragment {
     StorageReference storageReference;
     String userId;
 
-    public SellerFragment() {
+    public FragmentDashboardSeller() {
         // Required empty public constructor
     }
 
@@ -48,7 +48,7 @@ public class SellerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_seller, container, false);
+        return inflater.inflate(R.layout.fragment_dashboard_seller, container, false);
     }
 
     @Override

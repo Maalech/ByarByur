@@ -14,12 +14,12 @@ public class RegisterAs extends AppCompatActivity {
         setContentView(R.layout.activity_register_as);
     }
 
-    public void teacher(View view) {
+    public void seller(View view) {
         startActivity(new Intent(getApplicationContext(),RegisterSellerActivity.class));
         finish();
     }
 
-    public void student(View view) {
+    public void buyer(View view) {
         startActivity(new Intent(getApplicationContext(),RegisterBuyerActivity.class));
         finish();
     }

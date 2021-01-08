@@ -75,7 +75,7 @@ public class AddImageBusiness extends AppCompatActivity {
         final String id = data.getStringExtra("id");
         nama = data.getStringExtra("nama");
 
-        Query query = fStore.collection("barber").document(userId).collection("image");
+        Query query = fStore.collection("users").document(userId).collection("image");
         FirestoreRecyclerOptions<ImagePage> options = new FirestoreRecyclerOptions.Builder<ImagePage>()
                 .setQuery(query, ImagePage.class)
                 .build();
@@ -191,7 +191,7 @@ public class AddImageBusiness extends AppCompatActivity {
     }
 
     private void uploadImageToFirebase(String name, Uri contentUri) {
-        final StorageReference image = storageReference.child("Barber/"+nama+ "/dashboard/" + name);
+        final StorageReference image = storageReference.child("seller/"+nama+ "/dashboard/" + name);
         image.putFile(contentUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -202,7 +202,7 @@ public class AddImageBusiness extends AppCompatActivity {
                         String imageurl = downloadUrl.toString();
                         Map<String, Object> file = new HashMap<>();
                         file.put("image", imageurl);
-                        db.collection("barber").document(userId).collection("image").document()
+                        db.collection("seller").document(userId).collection("image").document()
                                 .set(file)
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override

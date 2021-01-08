@@ -10,6 +10,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -19,22 +23,18 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+public class FragmentDashboardBuyer extends Fragment {
 
-
-public class SellerFragment extends Fragment {
-
-    Button manageB,reserveB,chatRoom;
     TextView namaTv,alamatTv;
     ImageView profileIv;
+    Button findSeller,orderHistory,chatRoom;
     FirebaseFirestore fstore;
     FirebaseAuth fAuth;
-    StorageReference storageReference;
     String userId;
 
-    public SellerFragment() {
+    StorageReference storageReference;
+
+    public FragmentDashboardBuyer() {
         // Required empty public constructor
     }
 
@@ -48,7 +48,7 @@ public class SellerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_seller, container, false);
+        return inflater.inflate(R.layout.fragment_dashboard_buyer, container, false);
     }
 
     @Override
@@ -56,12 +56,13 @@ public class SellerFragment extends Fragment {
         namaTv = view.findViewById(R.id.nama_user);
         alamatTv = view.findViewById(R.id.alamat_user);
         profileIv = view.findViewById(R.id.profileImageView);
-
-        manageB = view.findViewById(R.id.manage_btn);
-        reserveB = view.findViewById(R.id.reserve_btn);
+        findSeller = view.findViewById(R.id.find_seller);
+        orderHistory = view.findViewById(R.id.orderhis_btn);
         chatRoom = view.findViewById(R.id.chat_btn);
 
+
         storageReference = FirebaseStorage.getInstance().getReference();
+
         fstore = FirebaseFirestore.getInstance();
         fAuth = FirebaseAuth.getInstance();
         userId = fAuth.getCurrentUser().getUid();
@@ -74,7 +75,6 @@ public class SellerFragment extends Fragment {
                 alamatTv.setText(documentSnapshot.getString("alamat"));
                 showImage();
             }
-
             private void showImage() {
                 StorageReference profileRef = storageReference.child("users/" + userId + "/profile.jpg");
                 profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -88,25 +88,24 @@ public class SellerFragment extends Fragment {
             }
         });
 
-        manageB.setOnClickListener(new View.OnClickListener() {
+        findSeller.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                startActivity(new Intent(getActivity(), ManageBusinessActivity.class));
+                startActivity(new Intent(getActivity(), FindSellerActivity.class));
             }
         });
-        reserveB.setOnClickListener(new View.OnClickListener() {
+
+        orderHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                startActivity(new Intent(getActivity(), OrderRequestActivity.class));
+                startActivity(new Intent(getActivity(), OrderHistoryActivity.class));
             }
         });
 
         chatRoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), ChatRoomSellerActivity.class));
+                startActivity(new Intent(getActivity(), ChatRoomActivity.class));
             }
         });
     }

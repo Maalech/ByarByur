@@ -51,7 +51,7 @@ public class ViewPageAdapter extends PagerAdapter {
         View view = inflater.inflate(R.layout.view_pager_item,container,false);
 
         //view
-        ImageView barber_image = view.findViewById(R.id.img_page);
+        ImageView seller_image = view.findViewById(R.id.img_page);
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,7 +60,7 @@ public class ViewPageAdapter extends PagerAdapter {
             }
         });
 
-        Picasso.get().load(imagePageList.get(position).getImage()).into(barber_image);
+        Picasso.get().load(imagePageList.get(position).getImage()).into(seller_image);
 
         container.addView(view);
         return view;

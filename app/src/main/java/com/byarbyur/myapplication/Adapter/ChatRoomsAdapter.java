@@ -76,7 +76,7 @@ public class ChatRoomsAdapter extends RecyclerView.Adapter<ChatRoomsAdapter.Chat
             FirebaseAuth fAuth = FirebaseAuth.getInstance();
             String userId = fAuth.getCurrentUser().getUid();
             if (chatRoom.getId_user().equals(userId)) {
-                db.collection("barber").document(chatRoom.getId_usaha()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                db.collection("users").document(chatRoom.getId_usaha()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         name.setText(documentSnapshot.getString("nama"));

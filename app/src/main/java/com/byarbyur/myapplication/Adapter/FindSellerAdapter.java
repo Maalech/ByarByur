@@ -20,7 +20,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
-public class FindBarberAdapter extends  FirestoreRecyclerAdapter<Seller, FindBarberAdapter.BarberHolder>{
+public class FindSellerAdapter extends  FirestoreRecyclerAdapter<Seller, FindSellerAdapter.SellerHolder>{
 
     private OnItemClickListener listener;
     /**
@@ -29,16 +29,16 @@ public class FindBarberAdapter extends  FirestoreRecyclerAdapter<Seller, FindBar
      *
      * @param options
      */
-    public FindBarberAdapter(@NonNull FirestoreRecyclerOptions<Seller> options) {
+    public FindSellerAdapter(@NonNull FirestoreRecyclerOptions<Seller> options) {
         super(options);
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull final BarberHolder holder, int i, @NonNull final Seller seller) {
+    protected void onBindViewHolder(@NonNull final SellerHolder holder, int i, @NonNull final Seller seller) {
 
         holder.namaTv.setText(seller.getNama());
         holder.alamatTv.setText(seller.getAlamat());
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference("Barber");
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference("Seller");
         final StorageReference Ref = storageReference.child(seller.getNama()  + "/Profile.jpg");
         Ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
@@ -55,9 +55,9 @@ public class FindBarberAdapter extends  FirestoreRecyclerAdapter<Seller, FindBar
 
     @NonNull
     @Override
-    public BarberHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_barber,parent,false);
-        return new BarberHolder(v);
+    public SellerHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_seller,parent,false);
+        return new SellerHolder(v);
     }
 
 
@@ -66,12 +66,12 @@ public class FindBarberAdapter extends  FirestoreRecyclerAdapter<Seller, FindBar
         return getSnapshots().size();
     }
 
-    class BarberHolder extends RecyclerView.ViewHolder{
+    class SellerHolder extends RecyclerView.ViewHolder{
 
         TextView namaTv, alamatTv;
         ImageView imgProfile;
 
-        public BarberHolder(@NonNull View itemView) {
+        public SellerHolder(@NonNull View itemView) {
             super(itemView);
             namaTv = itemView.findViewById(R.id.nama_usaha);
             alamatTv = itemView.findViewById(R.id.alamat_usaha);
