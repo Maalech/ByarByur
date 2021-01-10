@@ -210,6 +210,7 @@
         android:hint="Catatan"
         android:inputType="textMultiLine"
         android:padding="10dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/textView16"
         app:layout_constraintHorizontal_bias="0.0"

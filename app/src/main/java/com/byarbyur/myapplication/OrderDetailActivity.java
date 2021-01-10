@@ -100,6 +100,10 @@ public class OrderDetailActivity extends AppCompatActivity {
                         tolakbtn.setVisibility(View.GONE);
                         terimabtn.setVisibility(View.GONE);
                         selesai_btn.setVisibility(View.VISIBLE);
+                    } else if (documentSnapshot.get("status").toString().equals("Selesai")){
+                        tolakbtn.setVisibility(View.GONE);
+                        terimabtn.setVisibility(View.GONE);
+                        selesai_btn.setVisibility(View.GONE);
                     }
                 }
             }
@@ -166,6 +170,39 @@ public class OrderDetailActivity extends AppCompatActivity {
 
             }
         });
+
+        selesai_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final ProgressDialog progressDialog = new ProgressDialog(com.byarbyur.myapplication.OrderDetailActivity.this);
+
+                progressDialog.setMessage("Processing...");
+                progressDialog.show();
+
+                Map<String, Object> file = new HashMap<>();
+                file.put("status", "Selesai");
+                file.put("catatan", catatan.getText().toString());
+                DocumentReference docRef = db.collection("history").document(id);
+                docRef.update(file)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                progressDialog.dismiss();
+                                Toast.makeText(com.byarbyur.myapplication.OrderDetailActivity.this, "Pesanan Selesai", Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+
+                            }
+                        });
+
+            }
+        });
+
+
 
     }
 }

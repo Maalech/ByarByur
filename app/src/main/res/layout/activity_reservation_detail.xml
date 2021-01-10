@@ -207,6 +207,7 @@
         android:layout_weight="1"
         android:gravity="top"
         android:hint="Catatan"
+        android:visibility="gone"
         android:enabled="false"
         android:inputType="textMultiLine"
         android:padding="10dp"
