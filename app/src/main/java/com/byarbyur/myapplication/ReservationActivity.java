@@ -18,9 +18,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -51,6 +54,7 @@ public class ReservationActivity extends AppCompatActivity {
 
         Intent data = getIntent();
         final String id = data.getStringExtra("id");
+
 
         db = FirebaseFirestore.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference("Seller");
@@ -153,14 +157,15 @@ public class ReservationActivity extends AppCompatActivity {
                 file.put("waktu", waktu.getText());
                 file.put("status", "Sedang diproses");
                 file.put("catatan", "");
-                db.collection("pesan").document(userId)
-                        .set(file)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                db.collection("pesan").add(file)
+                        .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                             @Override
-                            public void onSuccess(Void aVoid) {
-                                progressDialog.dismiss();
-                                Toast.makeText(com.byarbyur.myapplication.ReservationActivity.this, "Pesanan Diproses", Toast.LENGTH_SHORT).show();
-                                finish();
+                            public void onComplete(@NonNull Task<DocumentReference> task) {
+                                if(task.isSuccessful()) {
+                                    progressDialog.dismiss();
+                                    Toast.makeText(com.byarbyur.myapplication.ReservationActivity.this, "Pesanan Diproses", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                }
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {

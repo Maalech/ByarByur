@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -46,7 +47,7 @@ public class OrderHistoryAdapter extends FirestoreRecyclerAdapter<Pesanan, Order
         db.collection("seller").document(userId).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-
+                if (documentSnapshot.exists()){
                 holder.namaTv.setText(documentSnapshot.getString("nama"));
                 holder.alamatTv.setText(documentSnapshot.getString("alamat"));
 
@@ -61,6 +62,12 @@ public class OrderHistoryAdapter extends FirestoreRecyclerAdapter<Pesanan, Order
                     }
                 });
             }
+            else {
+                    Toast.makeText(holder.itemView.getContext(),"Tidak ada order terselesaikan",Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
         });
 
 

@@ -3,6 +3,7 @@ package com.byarbyur.myapplication;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -12,6 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.byarbyur.myapplication.data.SharedPref;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -38,7 +40,7 @@ public class Login extends AppCompatActivity {
         registerT = findViewById(R.id.register_t);
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
-
+        final Context context=this;
         submit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -73,10 +75,12 @@ public class Login extends AppCompatActivity {
                                             if (document.exists()) {
                                                 String type = document.getString("type");
                                                 if (type.equals("seller")) {
+                                                    SharedPref.setRole(context,"seller");
                                                     Toast.makeText(Login.this, "Logged in Success", Toast.LENGTH_SHORT).show();
                                                     startActivity(new Intent(getApplicationContext(), LandingPageSeller.class));
                                                     finish();
                                                 } else if (type.equals("buyer")) {
+                                                    SharedPref.setRole(context,"buyer");
                                                     Toast.makeText(Login.this, "Logged in Success", Toast.LENGTH_SHORT).show();
                                                     startActivity(new Intent(getApplicationContext(), LandingPageBuyer.class));
                                                     finish();

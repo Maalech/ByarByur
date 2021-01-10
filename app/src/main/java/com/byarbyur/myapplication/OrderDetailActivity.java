@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,7 +35,7 @@ public class OrderDetailActivity extends AppCompatActivity {
     TextView nama, alamat, contact, tanggal, waktu;
     EditText catatan;
     ImageView img_prof;
-    Button tolakbtn, terimabtn;
+    Button tolakbtn, terimabtn, selesai_btn;
     private FirebaseFirestore db;
     StorageReference storageReference;
     FirebaseAuth fAuth;
@@ -47,6 +48,8 @@ public class OrderDetailActivity extends AppCompatActivity {
 
         Intent data = getIntent();
         final String id = data.getStringExtra("id");
+        final String usahaid = data.getStringExtra("usahaid");
+        final String userid = data.getStringExtra("userid");
 
         db = FirebaseFirestore.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference("users");
@@ -55,6 +58,7 @@ public class OrderDetailActivity extends AppCompatActivity {
 
         tolakbtn = findViewById(R.id.tolakbtn);
         terimabtn = findViewById(R.id.terimabtn);
+        selesai_btn=findViewById(R.id.selesai_btn);
         catatan= findViewById(R.id.noteET);
 
         nama = findViewById(R.id.nama_usahanya);
@@ -64,7 +68,7 @@ public class OrderDetailActivity extends AppCompatActivity {
         tanggal = findViewById(R.id.date_tv);
         waktu = findViewById(R.id.waktu_tv);
 
-        db.collection("users").document(id).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        db.collection("users").document(userid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -92,7 +96,11 @@ public class OrderDetailActivity extends AppCompatActivity {
                     waktu.setText(documentSnapshot.getString("waktu"));
                     tanggal.setText(documentSnapshot.getString("tanggal"));
                     contact.setText(documentSnapshot.get("contact").toString());
-
+                    if(documentSnapshot.get("status").toString().equals("Diterima")){
+                        tolakbtn.setVisibility(View.GONE);
+                        terimabtn.setVisibility(View.GONE);
+                        selesai_btn.setVisibility(View.VISIBLE);
+                    }
                 }
             }
         });

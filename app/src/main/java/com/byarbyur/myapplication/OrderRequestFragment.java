@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.byarbyur.myapplication.Adapter.OrderHistoryAdapter;
+import com.byarbyur.myapplication.data.SharedPref;
 import com.byarbyur.myapplication.model.Pesanan;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
@@ -49,11 +50,16 @@ public class OrderRequestFragment extends Fragment {
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         fAuth = FirebaseAuth.getInstance();
         userId = fAuth.getCurrentUser().getUid();
-        Query query = fStore.collection("pesan").whereEqualTo("usahaid",userId);
+        final String role= SharedPref.getRole(getContext());
+        Query query;
+        if(role.equals("buyer")){
+            query = fStore.collection("pesan").whereEqualTo("userid", userId);
+        }else {
+            query = fStore.collection("pesan").whereEqualTo("usahaid", userId);
+        }
         FirestoreRecyclerOptions<Pesanan> options = new FirestoreRecyclerOptions.Builder<Pesanan>()
                 .setQuery(query, Pesanan.class)
                 .build();
-
         adapter = new OrderHistoryAdapter(options);
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView2);
         recyclerView.setHasFixedSize(true);
@@ -64,10 +70,20 @@ public class OrderRequestFragment extends Fragment {
             @Override
             public void onItemClickListener(DocumentSnapshot documentSnapshot, int position) {
                 String id = documentSnapshot.getId();
+                String usahaid =documentSnapshot.get("usahaid").toString();
+                String userid=documentSnapshot.get("userid").toString();
+                if(role.equals("buyer")){
+                    Intent i = new Intent(getActivity(), ReservationDetailActivity.class);
+                    i.putExtra("id",id);
+                    startActivity(i);
+                }else{
+                    Intent i = new Intent(getActivity(), OrderDetailActivity.class);
+                    i.putExtra("id",id);
+                    i.putExtra("usahaid",usahaid);
+                    i.putExtra("userid",userid);
+                    startActivity(i);
+                }
 
-                Intent i = new Intent(getActivity(), ReservationDetailActivity.class);
-                i.putExtra("id",id);
-                startActivity(i);
             }
         });
 

@@ -115,7 +115,7 @@ public class EditProfile extends AppCompatActivity {
                     profileEmail.setError("Silahkan Isi Email");
                     return;
                 } else if (profileAlamat.getText().toString().isEmpty()) {
-                    profileAlamat.setError("Silahkan Isi Mata Pelajaran");
+                    profileAlamat.setError("Silahkan Isi Alamat");
                     return;
                 }
                 final ProgressDialog progressDialog = new ProgressDialog(EditProfile.this);
@@ -132,7 +132,7 @@ public class EditProfile extends AppCompatActivity {
                         Map<String, Object> edited = new HashMap<>();
                         edited.put("email", email);
                         edited.put("nama", profileFullName.getText().toString());
-                        edited.put("matpel", profileAlamat.getText().toString());
+                        edited.put("alamat", profileAlamat.getText().toString());
 
                         docRef.update(edited).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
