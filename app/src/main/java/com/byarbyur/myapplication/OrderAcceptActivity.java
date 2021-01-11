@@ -1,20 +1,21 @@
 package com.byarbyur.myapplication;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -29,13 +30,12 @@ import com.squareup.picasso.Picasso;
 import java.util.HashMap;
 import java.util.Map;
 
-public class OrderDetailActivity extends AppCompatActivity {
-
+public class OrderAcceptActivity extends AppCompatActivity {
     private static final String TAG = "Error";
     TextView nama, alamat, contact, tanggal, waktu;
     EditText catatan;
     ImageView img_prof;
-    Button tolakbtn, terimabtn;
+    Button batalbtn, selesaibtn;
     private FirebaseFirestore db;
     StorageReference storageReference;
     FirebaseAuth fAuth;
@@ -44,20 +44,18 @@ public class OrderDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order_detail);
+        setContentView(R.layout.activity_order_accept);
 
         Intent data = getIntent();
         final String id = data.getStringExtra("id");
-        final String usahaid = data.getStringExtra("usahaid");
-        final String userid = data.getStringExtra("userid");
 
         db = FirebaseFirestore.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference("users");
         fAuth = FirebaseAuth.getInstance();
         userId = fAuth.getCurrentUser().getUid();
 
-        tolakbtn = findViewById(R.id.tolakbtn);
-        terimabtn = findViewById(R.id.terimabtn);
+        selesaibtn = findViewById(R.id.selesaibtn);
+        batalbtn = findViewById(R.id.batalbtn);
         catatan= findViewById(R.id.noteET);
 
         nama = findViewById(R.id.nama_usahanya);
@@ -95,72 +93,85 @@ public class OrderDetailActivity extends AppCompatActivity {
                     waktu.setText(documentSnapshot.getString("waktu"));
                     tanggal.setText(documentSnapshot.getString("tanggal"));
                     contact.setText(documentSnapshot.get("contact").toString());
-                    if(documentSnapshot.get("status").toString().equals("Diterima")){
-                        tolakbtn.setVisibility(View.GONE);
-                        terimabtn.setVisibility(View.GONE);
-                    }
                 }
             }
         });
 
-        tolakbtn.setOnClickListener(new View.OnClickListener() {
+        batalbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final ProgressDialog progressDialog = new ProgressDialog(com.byarbyur.myapplication.OrderDetailActivity.this);
+                final ProgressDialog progressDialog = new ProgressDialog(OrderAcceptActivity.this);
 
                 progressDialog.setMessage("Processing...");
                 progressDialog.show();
 
                 Map<String, Object> file = new HashMap<>();
-                file.put("status", "Ditolak");
+                file.put("usahaid", userId);
                 file.put("catatan", catatan.getText().toString());
-                DocumentReference docRef = db.collection("pesan").document(id);
-                docRef.update(file)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                file.put("userid", id);
+                file.put("contact", contact.getText().toString());
+                file.put("waktu", waktu.getText().toString());
+                file.put("tanggal", tanggal.getText().toString());
+                file.put("status", "Dibatalkan");
+                file.put("sent", System.currentTimeMillis());
+
+                db.collection("history").document().set(file).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        db.collection("pesan").document(id).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 progressDialog.dismiss();
-                                Toast.makeText(com.byarbyur.myapplication.OrderDetailActivity.this, "Pesanan Ditolak", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(OrderAcceptActivity.this, "Pesanan Dibatalkan", Toast.LENGTH_SHORT).show();
                                 finish();
                             }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
+                        }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
 
                             }
                         });
-
+                    }
+                });
             }
         });
 
-        terimabtn.setOnClickListener(new View.OnClickListener() {
+        selesaibtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final ProgressDialog progressDialog = new ProgressDialog(com.byarbyur.myapplication.OrderDetailActivity.this);
+                final ProgressDialog progressDialog = new ProgressDialog(OrderAcceptActivity.this);
 
                 progressDialog.setMessage("Processing...");
                 progressDialog.show();
 
                 Map<String, Object> file = new HashMap<>();
-                file.put("status", "Diterima");
+                file.put("usahaid", userId);
                 file.put("catatan", catatan.getText().toString());
-                DocumentReference docRef = db.collection("pesan").document(id);
-                docRef.update(file)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                file.put("userid", id);
+                file.put("contact", contact.getText().toString());
+                file.put("waktu", waktu.getText().toString());
+                file.put("tanggal", tanggal.getText().toString());
+                file.put("status", "Selesai");
+                file.put("sent", System.currentTimeMillis());
+
+                db.collection("history").document().set(file).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        db.collection("pesan").document(id).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 progressDialog.dismiss();
-                                Toast.makeText(com.byarbyur.myapplication.OrderDetailActivity.this, "Pesanan Diterima", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(OrderAcceptActivity.this, "Pesanan Selesai", Toast.LENGTH_SHORT).show();
                                 finish();
                             }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
+                        }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
 
                             }
                         });
+                    }
+                });
 
             }
         });

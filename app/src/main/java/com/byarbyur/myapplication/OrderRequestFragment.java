@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.byarbyur.myapplication.Adapter.OrderHistoryAdapter;
+import com.byarbyur.myapplication.Adapter.OrderRequestAdapter;
 import com.byarbyur.myapplication.data.SharedPref;
 import com.byarbyur.myapplication.model.Pesanan;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -26,13 +27,11 @@ public class OrderRequestFragment extends Fragment {
     FirebaseAuth fAuth;
     String userId;
     private FirebaseFirestore fStore = FirebaseFirestore.getInstance();
-    private OrderHistoryAdapter adapter;
+    private OrderRequestAdapter adapter;
 
     public OrderRequestFragment() {
         // Required empty public constructor
     }
-
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,27 +59,24 @@ public class OrderRequestFragment extends Fragment {
         FirestoreRecyclerOptions<Pesanan> options = new FirestoreRecyclerOptions.Builder<Pesanan>()
                 .setQuery(query, Pesanan.class)
                 .build();
-        adapter = new OrderHistoryAdapter(options);
+        adapter = new OrderRequestAdapter(options);
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView2);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
 
-        adapter.setOnClickListener(new OrderHistoryAdapter.OnItemClickListener() {
+        adapter.setOnClickListener(new OrderRequestAdapter.OnItemClickListener() {
             @Override
             public void onItemClickListener(DocumentSnapshot documentSnapshot, int position) {
                 String id = documentSnapshot.getId();
-                String usahaid =documentSnapshot.get("usahaid").toString();
-                String userid=documentSnapshot.get("userid").toString();
-                if(role.equals("buyer")){
-                    Intent i = new Intent(getActivity(), ReservationDetailActivity.class);
+                String status = documentSnapshot.getString("status");
+                if(status.equals("Diterima")){
+                    Intent i = new Intent(getActivity(), OrderAcceptActivity.class);
                     i.putExtra("id",id);
                     startActivity(i);
                 }else{
                     Intent i = new Intent(getActivity(), OrderDetailActivity.class);
                     i.putExtra("id",id);
-                    i.putExtra("usahaid",usahaid);
-                    i.putExtra("userid",userid);
                     startActivity(i);
                 }
 

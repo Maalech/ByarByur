@@ -157,16 +157,15 @@ public class ReservationActivity extends AppCompatActivity {
                 file.put("waktu", waktu.getText());
                 file.put("status", "Sedang diproses");
                 file.put("catatan", "");
-                db.collection("pesan").add(file)
-                        .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                db.collection("pesan").document(userId)
+                        .set(file)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
-                            public void onComplete(@NonNull Task<DocumentReference> task) {
-                                if(task.isSuccessful()) {
+                            public void onSuccess(Void aVoid) {
                                     progressDialog.dismiss();
                                     Toast.makeText(com.byarbyur.myapplication.ReservationActivity.this, "Pesanan Diproses", Toast.LENGTH_SHORT).show();
                                     finish();
                                 }
-                            }
                         })
                         .addOnFailureListener(new OnFailureListener() {
                             @Override

@@ -152,19 +152,6 @@
         app:layout_constraintTop_toTopOf="@+id/tolakbtn"
         app:layout_constraintVertical_bias="0.89" />
 
-    <Button
-        android:id="@+id/selesai_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Selesai"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/tolakbtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
     <TextView
         android:id="@+id/textView13"
         android:layout_width="wrap_content"

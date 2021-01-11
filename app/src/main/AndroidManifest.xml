@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".ChatActivity"></activity>
+        <activity android:name=".OrderAcceptActivity"></activity>
+        <activity android:name=".ChatActivity" />
         <activity android:name=".ChatRoomActivity" />
         <activity android:name=".ChatRoomSellerActivity" />
         <activity android:name=".ReservationDetailActivity" />
@@ -31,9 +32,9 @@
         <activity android:name=".LandingPageBuyer" />
         <activity android:name=".RegisterAs" />
         <activity android:name=".RegisterBuyerActivity" />
-        <activity android:name=".RegisterSellerActivity"/>
+        <activity android:name=".RegisterSellerActivity" />
         <activity android:name=".LandingPageSeller" />
-        <activity android:name=".Login"/>
+        <activity android:name=".Login" />
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
