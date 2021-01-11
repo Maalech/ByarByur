@@ -112,7 +112,7 @@ public class OrderDetailActivity extends AppCompatActivity {
                 progressDialog.show();
 
                 Map<String, Object> file = new HashMap<>();
-                file.put("status", "Ditolak");
+                file.put("status", "Dalam Antrian");
                 file.put("catatan", catatan.getText().toString());
                 DocumentReference docRef = db.collection("pesan").document(id);
                 docRef.update(file)
