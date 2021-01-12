@@ -11,7 +11,7 @@
         android:id="@+id/cardView2"
         android:layout_width="350dp"
         android:layout_height="100dp"
-        app:cardCornerRadius="20dp"
+        app:cardCornerRadius="10dp"
         app:cardElevation="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,9 +42,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
+                android:textColor="@color/colorPrimary"
                 android:layout_toRightOf="@+id/profileImageView"
                 android:text="nama"
-                android:textSize="30sp"
+                android:textSize="24sp"
                 android:textStyle="bold" />
 
             <View
@@ -63,10 +64,11 @@
                 android:layout_below="@id/separator"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
+                android:textColor="@color/colorPrimary"
                 android:layout_toRightOf="@+id/profileImageView"
                 android:text="Alamat"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+                android:textSize="18sp"
+                 />
 
         </RelativeLayout>
 
@@ -76,7 +78,7 @@
         android:id="@+id/cardView3"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-
+        android:background="@drawable/header_drawable"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -90,9 +92,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Welcome ,"
-                android:textSize="36sp"
+                android:text="Welcome,"
+                android:textSize="28sp"
                 android:textStyle="bold"
+                android:textColor="@android:color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.11"
@@ -104,11 +107,13 @@
 
     <Button
         android:id="@+id/manage_btn"
+        android:background="@drawable/button_bg"
+        android:textColor="@color/colorPrimary"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:text="Manage Business"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/reserve_btn"
         app:layout_constraintHorizontal_bias="0.18"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView3"
@@ -122,19 +127,23 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.84"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/reserve_btn"
+        android:background="@drawable/button_bg"
+        android:textColor="@color/colorPrimary"
         app:layout_constraintTop_toBottomOf="@+id/cardView3"
         app:layout_constraintVertical_bias="0.22000003" />
 
     <Button
         android:id="@+id/reserve_btn"
         android:layout_width="100dp"
+        android:background="@drawable/button_bg"
+        android:textColor="@color/colorPrimary"
         android:layout_height="100dp"
         android:text="Reservation"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/chat_btn"
         app:layout_constraintHorizontal_bias="0.51"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/manage_btn"
         app:layout_constraintTop_toBottomOf="@+id/cardView3"
         app:layout_constraintVertical_bias="0.22000003" />
 
